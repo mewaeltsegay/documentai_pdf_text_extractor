@@ -183,7 +183,7 @@ python utils/diagnostic_test.py        # Full system test
 
 ## 📄 License
 
-[Specify your license here]
+MIT License
 
 ## 🔗 Related Resources
 
