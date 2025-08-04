@@ -1,0 +1,63 @@
+# Configuration files with sensitive information
+config_local.py
+key.json
+*service-account*.json
+*credentials*.json
+
+# Output directories and files
+output/
+llm_dataset/
+single_doc_result_*.json
+
+# User data directories
+PDFs/
+documents/
+interface/layout_dataset.json
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp 

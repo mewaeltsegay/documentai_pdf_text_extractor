@@ -1,0 +1,328 @@
+[
+  {
+    "file_path": "PDFs/sample_document_1.pdf",
+    "file_name": "sample_document_1.pdf",
+    "processing_timestamp": "2024-01-15T10:30:00.000000",
+    "status": "success",
+    "document_info": {
+      "total_pages": 3,
+      "text_length": 2847
+    },
+    "pages": [
+      {
+        "page_number": 1,
+        "width": 612.0,
+        "height": 792.0,
+        "blocks_count": 8,
+        "paragraphs_count": 12,
+        "lines_count": 35,
+        "tokens_count": 156,
+        "tables_count": 1,
+        "form_fields_count": 0
+      },
+      {
+        "page_number": 2,
+        "width": 612.0,
+        "height": 792.0,
+        "blocks_count": 6,
+        "paragraphs_count": 9,
+        "lines_count": 28,
+        "tokens_count": 124,
+        "tables_count": 0,
+        "form_fields_count": 2
+      },
+      {
+        "page_number": 3,
+        "width": 612.0,
+        "height": 792.0,
+        "blocks_count": 4,
+        "paragraphs_count": 6,
+        "lines_count": 18,
+        "tokens_count": 89,
+        "tables_count": 1,
+        "form_fields_count": 0
+      }
+    ],
+    "blocks": [
+      {
+        "page_number": 1,
+        "element_type": "block",
+        "element_number": 0,
+        "text": "Document Title: Annual Report 2023",
+        "text_length": 35,
+        "bounding_box": [[50, 100], [300, 100], [300, 130], [50, 130]],
+        "confidence": 0.98
+      },
+      {
+        "page_number": 1,
+        "element_type": "block",
+        "element_number": 1,
+        "text": "Executive Summary\n\nThis annual report provides a comprehensive overview of our company's performance during the fiscal year 2023. We have achieved significant milestones in revenue growth, customer satisfaction, and operational efficiency.",
+        "text_length": 234,
+        "bounding_box": [[50, 150], [550, 150], [550, 220], [50, 220]],
+        "confidence": 0.96
+      },
+      {
+        "page_number": 2,
+        "element_type": "block",
+        "element_number": 0,
+        "text": "Financial Performance\n\nRevenue increased by 15% compared to the previous year, reaching $12.5 million. Net profit margins improved from 8.2% to 9.7%, demonstrating our commitment to operational excellence.",
+        "text_length": 187,
+        "bounding_box": [[50, 100], [550, 100], [550, 170], [50, 170]],
+        "confidence": 0.94
+      }
+    ],
+    "paragraphs": [
+      {
+        "page_number": 1,
+        "element_type": "paragraph",
+        "element_number": 0,
+        "text": "Document Title: Annual Report 2023",
+        "text_length": 35,
+        "bounding_box": [[50, 100], [300, 100], [300, 130], [50, 130]],
+        "confidence": 0.98
+      },
+      {
+        "page_number": 1,
+        "element_type": "paragraph",
+        "element_number": 1,
+        "text": "Executive Summary",
+        "text_length": 17,
+        "bounding_box": [[50, 150], [200, 150], [200, 170], [50, 170]],
+        "confidence": 0.97
+      }
+    ],
+    "lines": [
+      {
+        "page_number": 1,
+        "element_type": "line",
+        "element_number": 0,
+        "text": "Document Title: Annual Report 2023",
+        "text_length": 35,
+        "bounding_box": [[50, 100], [300, 100], [300, 130], [50, 130]],
+        "confidence": 0.98
+      }
+    ],
+    "tokens": [
+      {
+        "page_number": 1,
+        "element_type": "token",
+        "element_number": 0,
+        "text": "Document",
+        "text_length": 8,
+        "bounding_box": [[50, 100], [95, 100], [95, 130], [50, 130]],
+        "confidence": 0.99
+      },
+      {
+        "page_number": 1,
+        "element_type": "token",
+        "element_number": 1,
+        "text": "Title:",
+        "text_length": 6,
+        "bounding_box": [[98, 100], [130, 100], [130, 130], [98, 130]],
+        "confidence": 0.98
+      }
+    ],
+    "tables": [
+      {
+        "page_number": 1,
+        "table_number": 0,
+        "rows_count": 3,
+        "header_rows_count": 1,
+        "cells": [
+          {
+            "page_number": 1,
+            "table_number": 0,
+            "row_index": 0,
+            "cell_index": 0,
+            "cell_type": "header",
+            "text": "Year",
+            "text_length": 4,
+            "bounding_box": [[100, 300], [150, 300], [150, 320], [100, 320]],
+            "row_span": 1,
+            "col_span": 1
+          },
+          {
+            "page_number": 1,
+            "table_number": 0,
+            "row_index": 0,
+            "cell_index": 1,
+            "cell_type": "header",
+            "text": "Revenue ($M)",
+            "text_length": 12,
+            "bounding_box": [[150, 300], [250, 300], [250, 320], [150, 320]],
+            "row_span": 1,
+            "col_span": 1
+          },
+          {
+            "page_number": 1,
+            "table_number": 0,
+            "row_index": 1,
+            "cell_index": 0,
+            "cell_type": "body",
+            "text": "2022",
+            "text_length": 4,
+            "bounding_box": [[100, 320], [150, 320], [150, 340], [100, 340]],
+            "row_span": 1,
+            "col_span": 1
+          },
+          {
+            "page_number": 1,
+            "table_number": 0,
+            "row_index": 1,
+            "cell_index": 1,
+            "cell_type": "body",
+            "text": "10.9",
+            "text_length": 4,
+            "bounding_box": [[150, 320], [250, 320], [250, 340], [150, 340]],
+            "row_span": 1,
+            "col_span": 1
+          }
+        ]
+      }
+    ],
+    "form_fields": [
+      {
+        "page_number": 2,
+        "field_number": 0,
+        "field_name": "Signature",
+        "field_value": "John Smith"
+      },
+      {
+        "page_number": 2,
+        "field_number": 1,
+        "field_name": "Date",
+        "field_value": "2023-12-31"
+      }
+    ]
+  },
+  {
+    "file_path": "PDFs/sample_document_2.pdf",
+    "file_name": "sample_document_2.pdf",
+    "processing_timestamp": "2024-01-15T10:32:15.000000",
+    "status": "success",
+    "document_info": {
+      "total_pages": 2,
+      "text_length": 1456
+    },
+    "pages": [
+      {
+        "page_number": 1,
+        "width": 612.0,
+        "height": 792.0,
+        "blocks_count": 5,
+        "paragraphs_count": 7,
+        "lines_count": 22,
+        "tokens_count": 98,
+        "tables_count": 0,
+        "form_fields_count": 3
+      },
+      {
+        "page_number": 2,
+        "width": 612.0,
+        "height": 792.0,
+        "blocks_count": 3,
+        "paragraphs_count": 4,
+        "lines_count": 15,
+        "tokens_count": 67,
+        "tables_count": 1,
+        "form_fields_count": 0
+      }
+    ],
+    "blocks": [
+      {
+        "page_number": 1,
+        "element_type": "block",
+        "element_number": 0,
+        "text": "Invoice #INV-2023-001",
+        "text_length": 21,
+        "bounding_box": [[50, 80], [250, 80], [250, 110], [50, 110]],
+        "confidence": 0.97
+      },
+      {
+        "page_number": 1,
+        "element_type": "block",
+        "element_number": 1,
+        "text": "Bill To:\nAcme Corporation\n123 Business Ave\nCity, State 12345",
+        "text_length": 58,
+        "bounding_box": [[50, 130], [300, 130], [300, 200], [50, 200]],
+        "confidence": 0.95
+      }
+    ],
+    "paragraphs": [],
+    "lines": [],
+    "tokens": [],
+    "tables": [
+      {
+        "page_number": 2,
+        "table_number": 0,
+        "rows_count": 4,
+        "header_rows_count": 1,
+        "cells": [
+          {
+            "page_number": 2,
+            "table_number": 0,
+            "row_index": 0,
+            "cell_index": 0,
+            "cell_type": "header",
+            "text": "Item",
+            "text_length": 4,
+            "bounding_box": [[50, 100], [150, 100], [150, 120], [50, 120]],
+            "row_span": 1,
+            "col_span": 1
+          },
+          {
+            "page_number": 2,
+            "table_number": 0,
+            "row_index": 0,
+            "cell_index": 1,
+            "cell_type": "header",
+            "text": "Quantity",
+            "text_length": 8,
+            "bounding_box": [[150, 100], [220, 100], [220, 120], [150, 120]],
+            "row_span": 1,
+            "col_span": 1
+          },
+          {
+            "page_number": 2,
+            "table_number": 0,
+            "row_index": 1,
+            "cell_index": 0,
+            "cell_type": "body",
+            "text": "Software License",
+            "text_length": 16,
+            "bounding_box": [[50, 120], [150, 120], [150, 140], [50, 140]],
+            "row_span": 1,
+            "col_span": 1
+          }
+        ]
+      }
+    ],
+    "form_fields": [
+      {
+        "page_number": 1,
+        "field_number": 0,
+        "field_name": "Customer Name",
+        "field_value": "Acme Corporation"
+      }
+    ]
+  },
+  {
+    "file_path": "PDFs/failed_document.pdf",
+    "file_name": "failed_document.pdf",
+    "processing_timestamp": "2024-01-15T10:35:42.000000",
+    "status": "failed",
+    "error": "400 Unsupported input file format.",
+    "document_info": {
+      "total_pages": 0,
+      "text_length": 0
+    },
+    "pages": [],
+    "blocks": [],
+    "paragraphs": [],
+    "lines": [],
+    "tokens": [],
+    "tables": [],
+    "form_fields": []
+  }
+] 

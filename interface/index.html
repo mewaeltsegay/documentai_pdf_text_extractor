@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document AI Layout Dataset Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-brain"></i> Document AI</h2>
+                <p>Layout Dataset Viewer</p>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item active" data-view="dashboard">
+                    <i class="fas fa-chart-dashboard"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="nav-item" data-view="documents">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Documents</span>
+                </li>
+                <li class="nav-item" data-view="blocks">
+                    <i class="fas fa-th-large"></i>
+                    <span>Text Blocks</span>
+                </li>
+                <li class="nav-item" data-view="tables">
+                    <i class="fas fa-table"></i>
+                    <span>Tables</span>
+                </li>
+                <li class="nav-item" data-view="pages">
+                    <i class="fas fa-file-image"></i>
+                    <span>Pages</span>
+                </li>
+                <li class="nav-item" data-view="pdf-viewer">
+                    <i class="fas fa-eye"></i>
+                    <span>PDF Viewer</span>
+                </li>
+                <li class="nav-item" data-view="search">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </li>
+            </ul>
+            
+            <div class="data-status">
+                <h4>Dataset Status</h4>
+                <div class="status-item">
+                    <span class="status-label">Total Documents:</span>
+                    <span id="total-docs" class="status-value">-</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Total Pages:</span>
+                    <span id="total-pages" class="status-value">-</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Last Updated:</span>
+                    <span id="last-updated" class="status-value">-</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="header-actions">
+                    <button id="refresh-data" class="btn btn-primary">
+                        <i class="fas fa-sync"></i> Refresh Data
+                    </button>
+                    <button id="export-data" class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                </div>
+            </header>
+
+            <!-- Loading State -->
+            <div id="loading" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading dataset...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="error" class="error-state" style="display: none;">
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Unable to Load Dataset</h3>
+                    <p id="error-text">Please ensure your dataset files are in the correct location.</p>
+                    <button onclick="loadData()" class="btn btn-primary">Retry</button>
+                </div>
+            </div>
+
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="view-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="stat-documents">0</h3>
+                            <p>Documents Processed</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="stat-pages">0</h3>
+                            <p>Total Pages</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-th-large"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="stat-blocks">0</h3>
+                            <p>Text Blocks</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-table"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="stat-tables">0</h3>
+                            <p>Tables Found</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts removed due to rendering issues -->
+
+                <div class="recent-documents">
+                    <h3>Recently Processed Documents</h3>
+                    <div id="recent-docs-list" class="documents-list">
+                        <!-- Recent documents will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents View -->
+            <div id="documents-view" class="view-content" style="display: none;">
+                <div class="view-controls">
+                    <div class="search-bar">
+                        <input type="text" id="doc-search" placeholder="Search documents...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="filter-controls">
+                        <select id="status-filter">
+                            <option value="">All Status</option>
+                            <option value="success">Success</option>
+                            <option value="failed">Failed</option>
+                        </select>
+                        <select id="sort-by">
+                            <option value="filename">Sort by Name</option>
+                            <option value="date">Sort by Date</option>
+                            <option value="pages">Sort by Pages</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="documents-grid" class="documents-grid">
+                    <!-- Documents will be populated here -->
+                </div>
+            </div>
+
+            <!-- Blocks View -->
+            <div id="blocks-view" class="view-content" style="display: none;">
+                <div class="view-controls">
+                    <div class="search-bar">
+                        <input type="text" id="block-search" placeholder="Search text blocks...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="filter-controls">
+                        <select id="block-type-filter">
+                            <option value="">All Types</option>
+                            <option value="block">Blocks</option>
+                            <option value="paragraph">Paragraphs</option>
+                            <option value="line">Lines</option>
+                            <option value="token">Tokens</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="blocks-table-container">
+                    <table id="blocks-table" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Document</th>
+                                <th>Page</th>
+                                <th>Type</th>
+                                <th>Text</th>
+                                <th>Position</th>
+                                <th>Confidence</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blocks-tbody">
+                            <!-- Blocks data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tables View -->
+            <div id="tables-view" class="view-content" style="display: none;">
+                <div id="tables-container">
+                    <!-- Tables data will be populated here -->
+                </div>
+            </div>
+
+            <!-- Pages View -->
+            <div id="pages-view" class="view-content" style="display: none;">
+                <div id="pages-container">
+                    <!-- Pages data will be populated here -->
+                </div>
+            </div>
+
+            <!-- PDF Viewer View -->
+            <div id="pdf-viewer-view" class="view-content" style="display: none;">
+                <div class="pdf-viewer-controls">
+                    <div class="pdf-selector">
+                        <select id="pdf-select">
+                            <option value="">Select a document to view...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="viewer-controls">
+                        <div class="page-controls">
+                            <button id="prev-page" class="btn btn-secondary" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <span id="page-info">Page 1 of 1</span>
+                            <button id="next-page" class="btn btn-secondary" disabled>
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="zoom-controls">
+                            <button id="zoom-out" class="btn btn-secondary">
+                                <i class="fas fa-search-minus"></i>
+                            </button>
+                            <span id="zoom-level">100%</span>
+                            <button id="zoom-in" class="btn btn-secondary">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="overlay-controls">
+                        <h4>Show Elements:</h4>
+                        <div class="element-toggles">
+                            <label class="toggle-label">
+                                <input type="checkbox" id="show-blocks" checked>
+                                <span class="toggle-color blocks-color"></span>
+                                Blocks
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" id="show-paragraphs" checked>
+                                <span class="toggle-color paragraphs-color"></span>
+                                Paragraphs
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" id="show-lines">
+                                <span class="toggle-color lines-color"></span>
+                                Lines
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" id="show-tokens">
+                                <span class="toggle-color tokens-color"></span>
+                                Tokens
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" id="show-tables" checked>
+                                <span class="toggle-color tables-color"></span>
+                                Tables
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="edit-controls">
+                        <h4>Edit Mode:</h4>
+                        <div class="edit-buttons">
+                            <label class="toggle-label edit-mode-toggle">
+                                <input type="checkbox" id="edit-mode">
+                                ✏️ Enable Editing
+                            </label>
+                            <button id="save-edits" class="btn btn-success btn-sm" disabled>
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                            <button id="undo-edit" class="btn btn-secondary btn-sm" disabled>
+                                <i class="fas fa-undo"></i> Undo
+                            </button>
+                            <button id="redo-edit" class="btn btn-secondary btn-sm" disabled>
+                                <i class="fas fa-redo"></i> Redo
+                            </button>
+                            <button id="reset-edits" class="btn btn-warning btn-sm" disabled>
+                                <i class="fas fa-refresh"></i> Reset All
+                            </button>
+                        </div>
+                        <div id="edit-status" class="edit-status" style="display: none;">
+                            <span id="edit-count">0 changes made</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pdf-viewer-container">
+                    <div id="pdf-loading" class="pdf-loading" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Loading PDF...</p>
+                    </div>
+                    
+                    <div id="pdf-error" class="pdf-error" style="display: none;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Unable to load PDF. Please ensure the PDF file is accessible.</p>
+                    </div>
+                    
+                    <div class="pdf-canvas-container">
+                        <canvas id="pdf-canvas"></canvas>
+                        <div id="pdf-overlay" class="pdf-overlay"></div>
+                    </div>
+                </div>
+                
+                <div class="element-info-panel" id="element-info-panel" style="display: none;">
+                    <div class="element-info-header">
+                        <h4 id="element-info-title">Element Information</h4>
+                        <button id="close-element-info" class="close-btn">&times;</button>
+                    </div>
+                    <div class="element-info-content" id="element-info-content">
+                        <!-- Element details will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search View -->
+            <div id="search-view" class="view-content" style="display: none;">
+                <div class="search-section">
+                    <h3>Advanced Search</h3>
+                    <div class="search-form">
+                        <input type="text" id="global-search" placeholder="Search across all content...">
+                        <button id="search-btn" class="btn btn-primary">Search</button>
+                    </div>
+                    
+                    <div class="search-filters">
+                        <label>
+                            <input type="checkbox" id="search-text" checked> Text Content
+                        </label>
+                        <label>
+                            <input type="checkbox" id="search-filenames" checked> Filenames
+                        </label>
+                        <label>
+                            <input type="checkbox" id="search-tables" checked> Table Content
+                        </label>
+                    </div>
+                </div>
+                
+                <div id="search-results" class="search-results">
+                    <!-- Search results will be populated here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Document Detail Modal -->
+    <div id="document-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Document Details</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Document details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js removed due to rendering issues -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // Set up PDF.js worker
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html> 
